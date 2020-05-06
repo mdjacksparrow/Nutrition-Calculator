@@ -1,11 +1,185 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nutricient Calc</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css" />
+
+    <!-- Font-Awesome  -->
+    <link rel="stylesheet" href="lib/font-awesome/css/font-awesome.min.css" />
+
+    <!-- Cheet sheet  -->
+    <link rel="stylesheet" href="css/style.min.css" />
+
+    <link rel="stylesheet" href="lib/loading-plugin/waitMe.css">
+  </head>
+  <body>
+    <div id="nutrient-calc" class="container">
+      <h1>Nutricient Calc</h1>
+      <form id="main-form">
+        <div class="form-group">
+          <label for="name">Enter Recipe Name(optional)</label>
+          <input
+            type="text"
+            class="form-control"
+            id="name"
+          />
+        </div>
+
+        <div class="form-row my-4">
+            <div class="form-group col-md-2">
+                <div class="d-flex justify-content-between align-items-center">
+                    <label for="amount">Amount</label>
+                    <span class="fa fa-warning text-danger pr-3 hide"></span>
+                </div>
+                <select id="amount" class="form-control">
+                  <option value="null" selected>Choose</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                </select>
+            </div>
+            <div class="form-group col-md-2">
+                <div class="d-flex justify-content-between align-items-center hide">
+                    <label for="size">Measure</label>
+                    <span class="fa fa-warning text-danger pr-3 hide"></span>
+                </div>
+                <select id="size" class="form-control">
+                  <option value='null'selected>Choose</option>
+                  <option value="15">tbsp</option>
+                  <option value="4.2">teasp</option>
+                  <option value="30">small</option>
+                  <option value="61">medium(61g)</option>
+                  <option value="115">large</option>
+                  <option value="122">cup, strips or slices (122g)</option>
+                  <option value="110">cup, grated(110g)</option>
+                  <option value="4">strip, medium(4g)</option>
+                  <option value="128">chopped(128g)</option>
+                  <option value="3">slice(3g)</option>
+                  <option value="2">strip, thin(2g)</option>
+                  <option value="72">like carrot(7 - 1/2")(72g)</option>
+                  <option value="122">serving(122g)</option>
+                  <option value="custom">custom measurement</option>
+                </select>
+            </div>
+            <div class="form-group col-md-6">
+              <label for="ingredientName">Name of Ingredient</label>
+              <input type="text" class="form-control" id="ingredientName">
+            </div>
+            <div class="form-group col-md-2">
+                <label for="add">Add</label>
+                <button type="button" id="add" class="btn btn-success w-100"><span class="fa fa-plus"></span></button>
+            </div>
+          </div>
+
+          <div id="items">
+              <h3 class="text-muted">List of Ingredients <span class="noOfItems">(Empty)</span></h3>
+               <div class='item'>
+                   <p>Amount</p>
+                   <p>Size</p>
+                   <p>Name of Ingredient</p>
+              </div>
+          </div>
+
+        <div class="form-group row">
+          <div class="form-group col-md-5">
+            <label for="no-of-serving">Select Number of Servings</label>
+            <select class="form-control" id="no-of-serving">
+              <option selected value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+            </select>
+          </div>
+          <div class="form-group col-md-7">
+            <label for="exampleFormControlInput1"
+              >Enter Recipe Name(optional)</label
+            >
+            <input
+              type="text"
+              class="form-control"
+              id="exampleFormControlInput1"
+              placeholder="name@example.com"
+            />
+          </div>
+        </div>
+
+        <button type="submit" id="submit" class="btn btn-dark">Analyze Recipe</button>
+      </form>
+
+
+      <!-- Receipt Genration  -->
+        <div id="receipt" class="mt-5">
+            <h1>Nutricient Facts</h1>
+            <p>Servings: <span>1</span></p>
+            <h1 class="border-bottom pb-2">Calories</h1>
+            <p class="text-right border-bottom">%Daily value*</p>
+            <div class="dv d-flex justify-content-between border-bottom">
+                <h4 class="col-md-8">Total Fat <span id="tf"></span></h4>
+                <p class="col-md-4 text-right" id="tfp">18%</p>
+            </div>
+            <div class="dv d-flex justify-content-between border-bottom pt-2">
+                <h5 class="col-md-8">Saturated Fat <span id="sf"></span></h5>
+                <p class="col-md-4 text-right" id="sfp">10%</p>
+            </div>
+            <div class="dv d-flex justify-content-between border-bottom pt-2">
+                <h4 class="col-md-8">Cholestrol <span id="ch"></span></h4>
+                <p class="col-md-4 text-right" id="chp">0%</p>
+            </div>
+            <div class="dv d-flex justify-content-between border-bottom pt-2">
+                <h4 class="col-md-8">Sodium <span id="na"></span></h4>
+                <p class="col-md-4 text-right" id="nap">25%</p>
+            </div>
+            <div class="dv d-flex justify-content-between border-bottom pt-2">
+                <h4 class="col-md-8">Total Carbohydrate <span id="carbs"></span></h4>
+                <p class="col-md-4 text-right" id="carbsp">35%</p>
+            </div>
+            <div class="dv d-flex justify-content-between border-bottom pt-2">
+                <h5 class="col-md-8">Dietary Fiber <span id="df"></span></h5>
+                <p class="col-md-4 text-right" id="dfp">30%</p>
+            </div>
+            <div class="dv d-flex justify-content-between border-bottom pt-2">
+                <h5 class="col-md-8">Total sugars <span id="ts"></span></h5>
+                <p class="col-md-4 text-right" id="tsp">30%</p>
+            </div>
+            <div class="dv d-flex justify-content-between border-bottom pt-2">
+                <h4 class="col-md-8">Protein <span id="pro"></span></h4>
+                <p class="col-md-4 text-right" id="prop"></p>
+            </div>
+            <div class="dv d-flex justify-content-between border-bottom pt-2">
+                <h5 class="col-md-8">Vitamin D <span id="vd"></span></h5>
+                <p class="col-md-4 text-right" id="vdp">30%</p>
+            </div>
+            <div class="dv d-flex justify-content-sm-between">
+                <h4 class="col-md-8">Calcium <span id="ca"></span></h4>
+                <p class="col-md-4 text-right" id="cap">7%</p>
+            </div>
+            <div class="dv d-flex justify-content-between border-bottom pt-2">
+                <h4 class="col-md-8">Iron <span id="fe"></span></h4>
+                <p class="col-md-4 text-right" id="fep">28%</p>
+            </div>
+            <div class="dv d-flex justify-content-between border-bottom pt-2">
+                <h4 class="col-md-8">Pottasioum <span id="pd"></span></h4>
+                <p class="col-md-4 text-right" id="pdp">26%</p>
+            </div>
+        </div>
+    </div>
+
     
-</body>
+    <!-- Scripts  -->
+    <script src="lib/jquery/jquery.min.js"></script>
+    <script src="lib/bootstrap/js/bootstrap.min.js"></script>
+    <script src="lib/loading-plugin/waitMe.js"></script>
+    <script src="js/main.js"></script>
+  </body>
 </html>

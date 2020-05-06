@@ -1,0 +1,7 @@
+const URL = 'https://api.nal.usda.gov/fdc/v1';
+
+//For search particular food based on the keyword
+fetch(`${URL}/foods/search?api_key=OUR_API_KEY&query=Cheddar%20Cheese`)
+
+//For search particuular food based on the fdcId
+fetch(`${URL}/food/${fdcId}?api_key=OUR_API_KEY`)

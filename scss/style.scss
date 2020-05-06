@@ -1,0 +1,132 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    height: auto;
+    display: flex;
+    justify-self: center;
+    align-items: center;
+}
+
+#nutrient-calc{
+    width: 60%;
+    box-shadow: 0.2px .1px 2px rgba(0,0,0,0.4);
+    padding: 1.5rem;
+
+    h1{
+        text-align: center;
+        text-transform: uppercase;
+    }
+
+    button{
+        text-transform: uppercase;
+        display: block;
+        margin: auto;
+    }
+
+    .hide{
+        display: none;
+    }
+
+    .show{
+        display: unset;
+        position: absolute;
+        right: 0;
+        top: 0.5rem;
+        animation: shake 0.5s linear infinite alternate;
+    }
+
+    @keyframes shake {
+        0% {
+          right: 1.3rem;
+        }
+        50% {
+          right: 1rem;
+        }
+        70% {
+          right: 1.3rem;
+        }
+        100% {
+          right: 1rem;
+        }
+      }
+      
+
+      #items{
+        text-align: center;
+        h3{
+            font-size: 1.3rem;
+        }
+
+        .item{
+            display: flex;
+            // justify-content: space-around;
+            transition: .5s ease-in;
+
+            p{
+                width: 30%;
+                // text-align: center;
+            }
+        }
+    }
+
+    #main-form{
+        label{
+            font-weight: 600;
+            font-size: 1.3rem;
+            color: #171738;
+        }
+
+        .form-group{
+            .d-flex{
+                p{
+                    text-decoration: underline;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+
+    #receipt{
+        // width: 40%;
+        margin: auto;
+        box-shadow: 0.2px .1px 2px rgba(0,0,0,0.4);
+        padding: 1.5rem;
+
+
+        h1{
+            font-size: 1.4rem;
+            text-align: left;
+        }
+
+        h4{
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        h5{
+            font-size: 1rem;
+            font-weight: 400;
+        }
+
+        .dv{
+            
+        }
+    }
+}
+
+@media (max-width: 600px){
+    #receipt,#nutrient-calc{
+        width: 100%;
+    }
+
+    #receipt{
+        .dv{
+            display: flex;
+            justify-content: space-between;
+        }
+    }
+}
